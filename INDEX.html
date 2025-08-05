@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Biodata Anak</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f0fff4, #a8e6cf);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .notification {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #a8e6cf;
+            color: #2e7d32;
+            padding: 15px 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(129, 199, 132, 0.3);
+            font-size: 18px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: 1000;
+        }
+        .notification.show {
+            top: 20px;
+            opacity: 1;
+        }
+        .biodata-container {
+            position: relative;
+            background: #ffffff;
+            padding: 30px;
+            padding-top: 80px;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .biodata-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+        }
+        .biodata-container h2 {
+            text-align: center;
+            margin-top: 70px;
+            margin-bottom: 35px;
+            color: #2e7d32;
+            font-size: 22px;
+            line-height: 1.4;
+        }
+        .logo-left, .logo-right {
+            position: absolute;
+            top: 20px;
+            width: 126px;
+            height: 126px;
+            object-fit: contain;
+            user-drag: none;
+            -webkit-user-drag: none;
+            user-select: none;
+            pointer-events: none;
+        }
+        .logo-left { left: 25px; }
+        .logo-right { right: 25px; }
+        .form-group { margin-bottom: 20px; }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #388e3c;
+            font-size: 15px;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #b9f6ca;
+            border-radius: 12px;
+            outline: none;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            background: #f1f8f6;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+        input:focus, select:focus {
+            border-color: #81c784;
+            box-shadow: 0 0 10px rgba(129, 199, 132, 0.3);
+            background: #ffffff;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #a8e6cf, #81c784);
+            border: none;
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(129, 199, 132, 0.35);
+        }
+        button:hover {
+            background: linear-gradient(135deg, #81c784, #66bb6a);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 187, 106, 0.45);
+        }
+        .foto-anak {
+            display: block;
+            margin: 20px auto 0;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            user-drag: none;
+            -webkit-user-drag: none;
+            user-select: none;
+            pointer-events: none;
+        }
+        select {
+            appearance: none;
+            background-color: #f1f8f6;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-caret-down-fill" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.658l-4.796 5.482a1 1 0 0 1-1.506 0z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 14px;
+            cursor: pointer;
+            color: #333;
+        }
+        select option[disabled] { color: #999; }
+        select:hover { background-color: #e9f7f1; }
+    </style>
+</head>
+<body>
+    <div class="notification" id="successMsg">
+        DATA ANAK SUDAH TERINPUT DI DAPODIK OPERATOR TERIMA KASIH
+    </div>
+
+    <div class="biodata-container">
+        <img src="BCS_LOGO.png" alt="BCS Logo" class="logo-left">
+        <img src="TK_GENERAL_LOGO.png" alt="TK General Logo" class="logo-right">
+
+        <h2>BIODATA SOSIAL ANAK TAMAN KANAK-KANAK BINA CITRA SEJATI 2025/2026</h2>
+        <form id="biodataForm" method="POST" action="simpan.php" autocomplete="off">
+            <div class="form-group">
+                <label for="nama">Nama Anak</label>
+                <input type="text" id="nama" name="nama" placeholder="Masukkan nama anak" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="gender">Jenis Kelamin</label>
+                <select id="gender" name="gender" required autocomplete="off">
+                    <option value="" disabled selected>-- Pilih Jenis Kelamin --</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="hobby">Hobby Anak</label>
+                <input type="text" id="hobby" name="hobby" placeholder="Masukkan hobby anak" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="cita">Cita-Cita Anak</label>
+                <input type="text" id="cita" name="cita" placeholder="Masukkan cita-cita anak" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="saudara">Jumlah Saudara Kandung</label>
+                <input type="number" id="saudara" name="saudara" placeholder="Masukkan jumlah saudara kandung" required autocomplete="off">
+            </div>
+            <button type="submit">Simpan Biodata</button>
+        </form>
+
+        <img src="BCS_1.jpeg" alt="Foto Anak TK" class="foto-anak">
+    </div>
+
+    <script>
+        document.getElementById('biodataForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Kirim data ke server (bisa pakai fetch atau tetap submit manual)
+            // Simulasi sukses:
+            const notif = document.getElementById('successMsg');
+            notif.classList.add('show');
+
+            setTimeout(() => {
+                notif.classList.remove('show');
+            }, 3000);
+
+            this.reset(); // kosongkan form setelah submit
+        });
+    </script>
+</body>
+</html>
