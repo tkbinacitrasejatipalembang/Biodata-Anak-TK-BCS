@@ -123,7 +123,6 @@
             user-drag: none;
             -webkit-user-drag: none;
             user-select: none;
-            pointer-events: none;
         }
         select {
             appearance: none;
@@ -177,15 +176,15 @@
             <button type="submit">Simpan Biodata</button>
         </form>
 
-        <img src="BCS_1.jpeg" alt="Foto Anak TK" class="foto-anak">
+        <a href="https://tk-bcs.github.io/tkbcs-registration/" target="_blank">
+            <img src="BCS_1.jpeg" alt="Foto Anak TK" class="foto-anak" draggable="false">
+        </a>
     </div>
 
     <script>
         document.getElementById('biodataForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Kirim data ke server (bisa pakai fetch atau tetap submit manual)
-            // Simulasi sukses:
             const notif = document.getElementById('successMsg');
             notif.classList.add('show');
 
@@ -193,7 +192,7 @@
                 notif.classList.remove('show');
             }, 3000);
 
-            this.reset(); // kosongkan form setelah submit
+            this.reset();
         });
     </script>
 </body>
